@@ -1,4 +1,4 @@
-function Acompanamientos() {
+function Acompañamientos() {
   return (
     <div style={{
       textAlign: 'center',
@@ -6,10 +6,10 @@ function Acompanamientos() {
       fontSize: '1.8rem',
       color: '#004080'
     }}>
-      <h1>Página de <strong>Acompanamientos</strong></h1>
+      <h1>Página de <strong>Acompañamientos</strong></h1>
       <p>Aquí se visualizarán los Acompanamientos del sistema.</p>
     </div>
   );
 }
 
-export default Acompanamientos;
+export default Acompañamientos;
