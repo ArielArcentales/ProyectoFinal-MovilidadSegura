@@ -4,7 +4,7 @@ import UsuarioForm from '../components/UsuarioForm'; // ¡Importamos nuestro nue
 function Usuarios() {
   return (
     <div>
-      {/* El título principal de la página */}
+      {Usuarios}
       <div style={{ textAlign: 'center', marginTop: '3rem', fontSize: '1.8rem', color: '#004080' }}>
         <h1>Gestión de <strong>Usuarios</strong></h1>
       </div>
