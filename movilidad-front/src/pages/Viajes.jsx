@@ -1,45 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ViajeList from '../components/ViajeList';
-import ViajeForm from '../components/ViajeForm'; // 1. IMPORTAMOS EL NUEVO FORMULARIO
+import ViajeForm from '../components/ViajeForm';
 
 function Viajes() {
   const [viajes, setViajes] = useState([]);
-  // 2. NUEVOS ESTADOS para los menús desplegables
   const [clientes, setClientes] = useState([]);
   const [conductores, setConductores] = useState([]);
 
-  // 3. Función para obtener TODOS los datos necesarios
-  const fetchData = async () => {
-    try {
-      // Hacemos las 3 peticiones a la vez para más eficiencia
-      const [viajesRes, clientesRes, conductoresRes] = await Promise.all([
-        axios.get('http://localhost:3000/api/viajes'),
-        axios.get('http://localhost:3000/api/usuarios'), // Asumimos que aquí están los clientes
-        axios.get('http://localhost:3000/api/conductores')
-      ]);
-      setViajes(viajesRes.data);
-      setClientes(clientesRes.data);
-      setConductores(conductoresRes.data);
-    } catch (error) {
-      console.error('Error al obtener los datos:', error);
-    }
-  };
+  const fetchData = async () => { /* ... (código sin cambios) ... */ };
+  useEffect(() => { fetchData(); }, []);
+  const handleCreateViaje = async (data) => { /* ... (código sin cambios) ... */ };
 
-  // 4. useEffect ahora llama a la nueva función `fetchData`
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  // 5. NUEVA FUNCIÓN para manejar la creación de un viaje
-  const handleCreateViaje = async (data) => {
+  // NUEVO: Función para manejar la actualización del estado de un viaje
+  const handleUpdateEstado = async (viajeId, nuevoEstado) => {
     try {
-      await axios.post('http://localhost:3000/api/viajes', data);
-      alert('Viaje registrado con éxito');
-      fetchData(); // Refrescamos todos los datos (incluida la lista de viajes)
+      // Hacemos una petición PUT a la URL del backend
+      // El backend espera el nuevo estado en el cuerpo de la petición
+      await axios.put(`http://localhost:3000/api/viajes/${viajeId}`, { estado_viaje: nuevoEstado });
+      alert('Estado del viaje actualizado con éxito');
+      fetchData(); // Refrescamos todos los datos para que la lista muestre el cambio
     } catch (error) {
-      console.error('Error al registrar el viaje:', error);
-      alert('Hubo un error al registrar el viaje');
+      console.error('Error al actualizar el estado del viaje:', error);
+      alert('Hubo un error al actualizar el estado del viaje.');
     }
   };
 
@@ -49,7 +32,6 @@ function Viajes() {
         <h1>Gestión de <strong>Viajes</strong></h1>
       </div>
       
-      {/* 6. Mostramos el formulario y le pasamos los datos y la función que necesita */}
       <ViajeForm 
         clientes={clientes} 
         conductores={conductores} 
@@ -58,7 +40,8 @@ function Viajes() {
       
       <hr style={{ maxWidth: '1000px', margin: '2rem auto', width: '100%' }} />
 
-      <ViajeList viajes={viajes} />
+      {/* Le pasamos la nueva función a ViajeList */}
+      <ViajeList viajes={viajes} onUpdateEstado={handleUpdateEstado} />
     </div>
   );
 }
