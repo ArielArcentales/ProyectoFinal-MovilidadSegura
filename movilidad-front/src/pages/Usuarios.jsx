@@ -1,13 +1,37 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import UsuarioForm from '../components/UsuarioForm';
+import UsuarioList from '../components/UsuarioList';
+
 function Usuarios() {
+  const [usuarios, setUsuarios] = useState([]);
+  const [usuarioAEditar, setUsuarioAEditar] = useState(null);
+
+  const fetchUsuarios = async () => { /* ... (código sin cambios) ... */ };
+  useEffect(() => { fetchUsuarios(); }, []);
+  const handleFormSubmit = async (data) => { /* ... (código sin cambios) ... */ };
+  const handleDelete = async (id) => { /* ... (código sin cambios) ... */ };
+
   return (
-    <div style={{
-      textAlign: 'center',
-      marginTop: '3rem',
-      fontSize: '1.8rem',
-      color: '#004080'
-    }}>
-      <h1>Página de <strong>Usuarios</strong></h1>
-      <p>Aquí se gestionarán los usuarios de la plataforma.</p>
+    // NUEVO: Un div contenedor para alinear todo
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+      
+      <div style={{ textAlign: 'center', marginTop: '3rem', fontSize: '1.8rem', color: '#004080' }}>
+        <h1>Gestión de <strong>Usuarios</strong></h1>
+      </div>
+
+      <UsuarioForm 
+        onSubmit={handleFormSubmit} 
+        usuarioAEditar={usuarioAEditar} 
+      />
+      
+      {/* Ya no necesitamos la línea <hr />, el 'gap' del div principal nos da espacio */}
+
+      <UsuarioList 
+        usuarios={usuarios} 
+        onEdit={setUsuarioAEditar}
+        onDelete={handleDelete}
+      />
     </div>
   );
 }
