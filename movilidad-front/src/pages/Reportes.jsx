@@ -1,24 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReporteList from '../components/ReporteList';
+import ReporteForm from '../components/ReporteForm'; // 1. IMPORTAMOS EL NUEVO FORMULARIO
 
 function Reportes() {
   const [reportes, setReportes] = useState([]);
+  const [usuarios, setUsuarios] = useState([]); // 2. NUEVO ESTADO para la lista de usuarios
 
-  const fetchReportes = async () => {
+  // 3. Función para obtener TODOS los datos necesarios
+  const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/reportes');
-      setReportes(response.data);
+      // Pedimos los reportes y los usuarios al mismo tiempo
+      const [reportesRes, usuariosRes] = await Promise.all([
+        axios.get('http://localhost:3000/api/reportes'),
+        axios.get('http://localhost:3000/api/usuarios')
+      ]);
+      setReportes(reportesRes.data);
+      setUsuarios(usuariosRes.data);
     } catch (error) {
-      console.error('Error al obtener los reportes:', error);
+      console.error('Error al obtener los datos:', error);
     }
   };
 
+  // 4. useEffect ahora llama a la nueva función `fetchData`
   useEffect(() => {
-    fetchReportes();
+    fetchData();
   }, []);
 
-  // La función para crear un nuevo reporte irá aquí más adelante
+  // 5. NUEVA FUNCIÓN para manejar la creación de un reporte
+  const handleCreateReporte = async (data) => {
+    try {
+      await axios.post('http://localhost:3000/api/reportes', data);
+      alert('Reporte creado con éxito');
+      fetchData(); // Refrescamos todos los datos (incluida la lista de reportes)
+    } catch (error) {
+      console.error('Error al crear el reporte:', error);
+      alert('Hubo un error al crear el reporte');
+    }
+  };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
@@ -26,7 +45,13 @@ function Reportes() {
         <h1><strong>Reportes</strong> de Peligros</h1>
       </div>
       
-      {/* Aquí irá el formulario de creación más adelante */}
+      {/* 6. Mostramos el formulario y le pasamos los datos y la función que necesita */}
+      <ReporteForm 
+        usuarios={usuarios}
+        onSubmit={handleCreateReporte}
+      />
+      
+      <hr style={{ maxWidth: '1000px', margin: '2rem auto', width: '100%' }} />
 
       <ReporteList reportes={reportes} />
     </div>
