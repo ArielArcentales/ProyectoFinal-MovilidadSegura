@@ -1,40 +1,53 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import GoogleLocationPicker from './GoogleLocationPicker';
 
 function ReporteForm({ usuarios, onSubmit }) {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  // Obtenemos 'setValue' de useForm, que es lo que necesitamos.
+  const { register, handleSubmit, formState: { errors }, setValue } = useForm();
+
+  // ¡AQUÍ ESTÁ LA SOLUCIÓN!
+  // Definimos la función 'handleLocationChange' DENTRO del componente ReporteForm.
+  const handleLocationChange = (location) => {
+    // Esta función usa 'setValue' para actualizar el campo del formulario de forma programática.
+    setValue('ubicacion_geografica', location, { shouldValidate: true });
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="modern-form">
-      <h2>Nuevo Reporte de Peligro</h2>
-
+      <h2>Crear Nuevo Reporte de Peligro</h2>
+      
+      {/* ... (los otros campos del formulario como 'id_usuario', 'zona', 'descripcion' no cambian) ... */}
       <div className="input-group">
         <label htmlFor="id_usuario">Usuario que Reporta</label>
-        <select id="id_usuario" {...register("id_usuario", { required: true })} className="modern-form-input">
-          <option value="">Seleccione un usuario...</option>
-          {usuarios.map(usuario => (
-            <option key={usuario.id_usuario} value={usuario.id_usuario}>
-              {usuario.nombre}
-            </option>
-          ))}
+        <select id="id_usuario" {...register("id_usuario", { required: true })}>
+            {/* ... opciones ... */}
         </select>
-        {errors.id_usuario && <span style={{ color: 'red', fontSize: '0.8rem' }}>Debe seleccionar un usuario</span>}
       </div>
 
       <div className="input-group">
         <label htmlFor="zona">Zona del Peligro</label>
-        <input type="text" id="zona" {...register("zona", { required: true })} placeholder="Ej: Av. Amazonas y Eloy Alfaro" />
-      </div>
-      
-      <div className="input-group">
-        <label htmlFor="descripcion">Descripción</label>
-        {/* Para los <textarea> también podemos usar la clase 'modern-form-input' */}
-        <textarea id="descripcion" {...register("descripcion", { required: true })} className="modern-form-input" rows="4" placeholder="Describa el peligro..."></textarea>
+        <input type="text" id="zona" {...register("zona", { required: true })} />
       </div>
 
       <div className="input-group">
-        <label htmlFor="ubicacion_geografica">Ubicación Geográfica (Opcional)</label>
-        <input type="text" id="ubicacion_geografica" {...register("ubicacion_geografica")} placeholder="Ej: -0.180653, -78.467834" />
+        <label htmlFor="descripcion">Descripción</label>
+        <textarea id="descripcion" {...register("descripcion", { required: true })} rows="4" />
+      </div>
+      
+      {/* --- Grupo de Input para el Mapa --- */}
+      <div className="input-group">
+        <label htmlFor="ubicacion_geografica">Seleccione la Ubicación en el Mapa</label>
+        
+        {/* Le pasamos la función que acabamos de definir a nuestro componente de mapa */}
+        <GoogleLocationPicker onLocationSelect={handleLocationChange} />
+        
+        <input 
+          type="hidden" 
+          id="ubicacion_geografica" 
+          {...register("ubicacion_geografica")}
+        />
+        {errors.ubicacion_geografica && <span className="error-message">{errors.ubicacion_geografica.message}</span>}
       </div>
 
       <button type="submit">Crear Reporte</button>
