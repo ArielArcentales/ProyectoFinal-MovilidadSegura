@@ -42,7 +42,6 @@ function Reportes() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
       <div style={{ textAlign: 'center', marginTop: '3rem', fontSize: '1.8rem', color: '#004080' }}>
-        <h1><strong>Reportes</strong> de Peligros</h1>
       </div>
       
       {/* 6. Mostramos el formulario y le pasamos los datos y la función que necesita */}
@@ -51,9 +50,6 @@ function Reportes() {
         onSubmit={handleCreateReporte}
       />
       
-      <hr style={{ maxWidth: '1000px', margin: '2rem auto', width: '100%' }} />
-
-      <ReporteList reportes={reportes} />
     </div>
   );
 }

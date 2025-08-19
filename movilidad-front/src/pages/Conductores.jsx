@@ -3,7 +3,7 @@ import ConductorForm from '../components/ConductorForm'; // ¡Importamos nuestro
 
 function Conductores() {
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
       {/* Título principal de la página */}
       <div style={{ textAlign: 'center', marginTop: '3rem', fontSize: '1.8rem', color: '#004080' }}>
         <h1>Gestión de <strong>Conductores</strong></h1>

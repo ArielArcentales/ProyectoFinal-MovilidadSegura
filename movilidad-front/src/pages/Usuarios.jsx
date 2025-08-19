@@ -15,9 +15,9 @@ function Usuarios() {
   return (
     // NUEVO: Un div contenedor para alinear todo
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
-      
+    
       <div style={{ textAlign: 'center', marginTop: '3rem', fontSize: '1.8rem', color: '#004080' }}>
-        <h1>Gestión de <strong>Usuarios</strong></h1>
+        
       </div>
 
       <UsuarioForm 
@@ -25,13 +25,6 @@ function Usuarios() {
         usuarioAEditar={usuarioAEditar} 
       />
       
-      {/* Ya no necesitamos la línea <hr />, el 'gap' del div principal nos da espacio */}
-
-      <UsuarioList 
-        usuarios={usuarios} 
-        onEdit={setUsuarioAEditar}
-        onDelete={handleDelete}
-      />
     </div>
   );
 }
