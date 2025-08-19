@@ -29,7 +29,7 @@ function Viajes() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
       <div style={{ textAlign: 'center', marginTop: '3rem', fontSize: '1.8rem', color: '#004080' }}>
-        <h1>Gestión de <strong>Viajes</strong></h1>
+        
       </div>
       
       <ViajeForm 
@@ -38,10 +38,6 @@ function Viajes() {
         onSubmit={handleCreateViaje} 
       />
       
-      <hr style={{ maxWidth: '1000px', margin: '2rem auto', width: '100%' }} />
-
-      {/* Le pasamos la nueva función a ViajeList */}
-      <ViajeList viajes={viajes} onUpdateEstado={handleUpdateEstado} />
     </div>
   );
 }
