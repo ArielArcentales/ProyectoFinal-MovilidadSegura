@@ -3,13 +3,9 @@ import { useForm } from 'react-hook-form';
 import GoogleLocationPicker from './GoogleLocationPicker';
 
 function ReporteForm({ usuarios, onSubmit }) {
-  // Obtenemos 'setValue' de useForm, que es lo que necesitamos.
   const { register, handleSubmit, formState: { errors }, setValue } = useForm();
 
-  // ¡AQUÍ ESTÁ LA SOLUCIÓN!
-  // Definimos la función 'handleLocationChange' DENTRO del componente ReporteForm.
   const handleLocationChange = (location) => {
-    // Esta función usa 'setValue' para actualizar el campo del formulario de forma programática.
     setValue('ubicacion_geografica', location, { shouldValidate: true });
   };
 
@@ -17,11 +13,11 @@ function ReporteForm({ usuarios, onSubmit }) {
     <form onSubmit={handleSubmit(onSubmit)} className="modern-form">
       <h2>Crear Nuevo Reporte de Peligro</h2>
       
-      {/* ... (los otros campos del formulario como 'id_usuario', 'zona', 'descripcion' no cambian) ... */}
+      
       <div className="input-group">
         <label htmlFor="id_usuario">Usuario que Reporta</label>
         <select id="id_usuario" {...register("id_usuario", { required: true })}>
-            {/* ... opciones ... */}
+            {/*opciones*/}
         </select>
       </div>
 
@@ -35,11 +31,10 @@ function ReporteForm({ usuarios, onSubmit }) {
         <textarea id="descripcion" {...register("descripcion", { required: true })} rows="4" />
       </div>
       
-      {/* --- Grupo de Input para el Mapa --- */}
+      {/* Input mapa*/}
       <div className="input-group">
         <label htmlFor="ubicacion_geografica">Seleccione la Ubicación en el Mapa</label>
         
-        {/* Le pasamos la función que acabamos de definir a nuestro componente de mapa */}
         <GoogleLocationPicker onLocationSelect={handleLocationChange} />
         
         <input 
