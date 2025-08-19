@@ -1,36 +1,31 @@
-// src/components/ConductoresList.jsx
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function ConductoresList() {
-  // Estados para manejar los datos, la carga y los errores
+  // Estados para manejar la carga y los errores
   const [conductores, setConductores] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // useEffect se ejecuta una vez cuando el componente se muestra por primera vez
   useEffect(() => {
     const fetchConductores = async () => {
       try {
         setLoading(true);
-        // Hacemos la llamada a la API para obtener la lista
         const response = await axios.get('/api/conductores');
-        setConductores(response.data); // Guardamos la lista
-        setError(''); // Limpiamos errores previos
+        setConductores(response.data); 
+        setError('');
       } catch (err) {
         setError('No se pudo cargar la lista de conductores.');
         console.error('Error al obtener los conductores:', err);
       } finally {
-        // Esto se ejecuta siempre, al final
         setLoading(false);
       }
     };
 
     fetchConductores();
-  }, []); // El [] vacío significa que solo se ejecuta una vez
+  }, []);
 
-  // --- Lógica de visualización ---
+  // Visualización
   if (loading) {
     return <p style={{ textAlign: 'center' }}>Cargando conductores...</p>;
   }

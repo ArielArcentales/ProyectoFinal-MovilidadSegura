@@ -1,5 +1,5 @@
 import React from 'react';
-import ConductorForm from '../components/ConductorForm'; // ¡Importamos nuestro nuevo formulario!
+import ConductorForm from '../components/ConductorForm';
 
 function Conductores() {
   return (

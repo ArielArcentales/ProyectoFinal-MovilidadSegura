@@ -20,7 +20,6 @@ function UsuarioList({ usuarios, onEdit, onDelete }) {
                             <td style={tdStyle}>{usuario.correo}</td>
                             <td style={tdStyle}>{usuario.nombre_rol || 'No asignado'}</td>
 
-                            {/* CÓDIGO CORREGIDO: La celda de acciones que faltaba */}
                             <td style={tdStyle}>
                                 <button onClick={() => onEdit(usuario)} style={editButtonStyle}>
                                     Editar

@@ -1,5 +1,5 @@
 import React from 'react';
-import AcompanamientoForm from '../components/AcompanamientoForm'; // ¡Importamos nuestro nuevo formulario!
+import AcompanamientoForm from '../components/AcompanamientoForm';
 
 function Acompanamientos() {
   return (

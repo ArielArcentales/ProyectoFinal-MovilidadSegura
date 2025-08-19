@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 
-// No hay objetos de estilo aquí, todo el diseño viene de index.css
+// El diseño se importa de index.css
 function AcompanamientoForm() {
   const { register, handleSubmit, formState: { errors } } = useForm();
 

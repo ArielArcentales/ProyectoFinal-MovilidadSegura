@@ -8,7 +8,7 @@ const containerStyle = {
   overflow: 'hidden'
 };
 
-// Coordenadas iniciales para centrar el mapa (ej. Quito, Ecuador)
+// Coordenadas iniciales para centrar el mapa (Quito)
 const center = {
   lat: -0.2094847,
   lng: -78.4940086
@@ -23,14 +23,14 @@ function GoogleLocationPicker({ onLocationSelect }) {
 
   const [marker, setMarker] = useState(null);
 
-  // Función que se ejecuta cuando se hace clic en el mapa
+  // Click en el mapa
   const onMapClick = useCallback((event) => {
     const newMarkerPosition = {
       lat: event.latLng.lat(),
       lng: event.latLng.lng(),
     };
     setMarker(newMarkerPosition);
-    // Le avisamos al formulario de la nueva ubicación
+    // Nueva ubicación
     onLocationSelect(`${newMarkerPosition.lat.toFixed(6)}, ${newMarkerPosition.lng.toFixed(6)}`);
   }, [onLocationSelect]);
 

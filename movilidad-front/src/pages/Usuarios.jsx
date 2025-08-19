@@ -7,13 +7,13 @@ function Usuarios() {
   const [usuarios, setUsuarios] = useState([]);
   const [usuarioAEditar, setUsuarioAEditar] = useState(null);
 
-  const fetchUsuarios = async () => { /* ... (código sin cambios) ... */ };
+  const fetchUsuarios = async () => {};
   useEffect(() => { fetchUsuarios(); }, []);
-  const handleFormSubmit = async (data) => { /* ... (código sin cambios) ... */ };
-  const handleDelete = async (id) => { /* ... (código sin cambios) ... */ };
+  const handleFormSubmit = async (data) => { };
+  const handleDelete = async (id) => { };
 
   return (
-    // NUEVO: Un div contenedor para alinear todo
+
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
     
       <div style={{ textAlign: 'center', marginTop: '3rem', fontSize: '1.8rem', color: '#004080' }}>

@@ -8,18 +8,17 @@ function Viajes() {
   const [clientes, setClientes] = useState([]);
   const [conductores, setConductores] = useState([]);
 
-  const fetchData = async () => { /* ... (código sin cambios) ... */ };
+  const fetchData = async () => { };
   useEffect(() => { fetchData(); }, []);
-  const handleCreateViaje = async (data) => { /* ... (código sin cambios) ... */ };
+  const handleCreateViaje = async (data) => { };
 
-  // NUEVO: Función para manejar la actualización del estado de un viaje
+  // Actualizar estado de viaje
   const handleUpdateEstado = async (viajeId, nuevoEstado) => {
     try {
-      // Hacemos una petición PUT a la URL del backend
-      // El backend espera el nuevo estado en el cuerpo de la petición
+      // Peticion
       await axios.put(`http://localhost:3000/api/viajes/${viajeId}`, { estado_viaje: nuevoEstado });
       alert('Estado del viaje actualizado con éxito');
-      fetchData(); // Refrescamos todos los datos para que la lista muestre el cambio
+      fetchData(); // Recargamos los datos
     } catch (error) {
       console.error('Error al actualizar el estado del viaje:', error);
       alert('Hubo un error al actualizar el estado del viaje.');
