@@ -8,10 +8,9 @@ function ViajeForm({ clientes, conductores, onSubmit }) {
     <form onSubmit={handleSubmit(onSubmit)} className="modern-form">
       <h2>Registrar Nuevo Viaje</h2>
 
-      {/* --- Cliente --- */}
+      {/* Cliente  */}
       <div className="input-group">
         <label htmlFor="id_cliente">Cliente</label>
-        {/* Usamos las clases que ya funcionan para los inputs */}
         <select id="id_cliente" {...register("id_cliente", { required: true })}>
           <option value="">Seleccione un cliente...</option>
           {clientes.map(cliente => (
@@ -20,11 +19,10 @@ function ViajeForm({ clientes, conductores, onSubmit }) {
             </option>
           ))}
         </select>
-        {/* SOLUCIÓN: Usamos un estilo en línea para el error para asegurar su posición */}
         {errors.id_cliente && <div style={{ color: 'red', fontSize: '0.8rem', marginTop: '0.4rem' }}>Debe seleccionar un cliente</div>}
       </div>
 
-      {/* --- Conductor --- */}
+      {/* Conductor */}
       <div className="input-group">
         <label htmlFor="id_conductor">Conductor</label>
         <select id="id_conductor" {...register("id_conductor", { required: true })}>
@@ -38,7 +36,7 @@ function ViajeForm({ clientes, conductores, onSubmit }) {
         {errors.id_conductor && <div style={{ color: 'red', fontSize: '0.8rem', marginTop: '0.4rem' }}>Debe seleccionar un conductor</div>}
       </div>
 
-      {/* --- El resto del formulario --- */}
+      {/* formulario */}
       <div className="input-group">
         <label htmlFor="punto_origen">Punto de Origen</label>
         <input type="text" id="punto_origen" {...register("punto_origen", { required: true })} />
